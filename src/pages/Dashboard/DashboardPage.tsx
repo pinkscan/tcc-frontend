@@ -5,7 +5,6 @@ type BackendResponse = {
   uuid: string;
   resultado_final: string;
 
-  // nomes REAIS do backend
   detect?: {
     classe: string;
     prob_normal: number;
@@ -26,6 +25,9 @@ type BackendResponse = {
   };
 
   imagem_tratada_base64?: string | null;
+
+  // Campo REAL retornado pelo backend
+  recomendacao?: string;
 };
 
 export default function DashboardPage() {
@@ -79,9 +81,7 @@ export default function DashboardPage() {
         Envie uma imagem de mamografia para análise automática pelo modelo de IA.
       </p>
 
-      {/* ====================== */}
-      {/* FORM DE UPLOAD        */}
-      {/* ====================== */}
+      {/* FORM */}
       <form
         onSubmit={handleSubmit}
         className="bg-white/90 rounded-2xl border border-pinkscan-primary/20 p-6 space-y-4"
@@ -139,9 +139,7 @@ export default function DashboardPage() {
         )}
       </form>
 
-      {/* ====================== */}
-      {/* RESULTADO FINAL        */}
-      {/* ====================== */}
+      {/* RESULTADO */}
       {result && (
         <div className="mt-6 bg-white/90 rounded-2xl border border-pinkscan-primary/30 p-6 space-y-6">
           <h2 className="text-lg font-semibold text-pinkscan-dark">
@@ -155,7 +153,7 @@ export default function DashboardPage() {
             </span>
           </p>
 
-          {/* DETECÇÃO */}
+          {/* DETECT */}
           {result.detect && (
             <div>
               <h3 className="font-semibold text-pinkscan-dark mb-1">
@@ -163,8 +161,7 @@ export default function DashboardPage() {
               </h3>
 
               <p className="text-sm">
-                Classe detectada:{" "}
-                <b>{result.detect.classe}</b>
+                Classe detectada: <b>{result.detect.classe}</b>
               </p>
 
               <p className="text-sm">
@@ -176,7 +173,7 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {/* CLASSIFICAÇÃO */}
+          {/* CLASSIFY */}
           {result.classify && (
             <div>
               <h3 className="font-semibold text-pinkscan-dark mb-1">
@@ -199,9 +196,7 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {/* ====================== */}
-          {/* COMPARAÇÃO VISUAL      */}
-          {/* ====================== */}
+          {/* COMPARAÇÃO VISUAL */}
           {(preview || result.imagem_tratada_base64) && (
             <div>
               <h3 className="text-base font-semibold text-pinkscan-dark mb-3">
@@ -230,17 +225,16 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {/* CARD FINAL */}
-          {result.imagem_tratada_base64 && (
-            <div className="bg-gray-50 border rounded-xl p-4 shadow-sm mt-6">
-              <h4 className="font-semibold text-sm mb-3">
-                Visualização detalhada:
+          {/* RECOMENDAÇÃO MINI GPT */}
+          {result.recomendacao && (
+            <div className="bg-pink-50 border border-pinkscan-primary/30 rounded-xl p-5 shadow-sm mt-6">
+              <h4 className="font-semibold text-sm mb-3 text-pinkscan-dark">
+                📌 Recomendação detalhada do MiniGPT
               </h4>
 
-              <img
-                src={`data:image/png;base64,${result.imagem_tratada_base64}`}
-                className="rounded-lg mx-auto max-h-[400px] object-contain shadow-md"
-              />
+              <p className="text-sm leading-relaxed whitespace-pre-line text-pinkscan-dark/90">
+                {result.recomendacao}
+              </p>
             </div>
           )}
         </div>
