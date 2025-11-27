@@ -1,5 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { API_URL } from "../../config";
+
 
 type BackendResponse = {
   uuid: string;
@@ -50,7 +52,7 @@ export default function DashboardPage() {
       form.append("file", file);
 
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/exams/process`,
+        `${API_URL}/api/exams/process`,
         {
           method: "POST",
           headers: {
