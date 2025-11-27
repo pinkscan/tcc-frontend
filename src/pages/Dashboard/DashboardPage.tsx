@@ -197,36 +197,6 @@ export default function DashboardPage() {
               </p>
             </div>
           )}
-
-          {/* COMPARAÇÃO VISUAL */}
-          {(preview || result.imagem_tratada_base64) && (
-            <div>
-              <h3 className="text-base font-semibold text-pinkscan-dark mb-3">
-                Comparação visual
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <p className="font-medium text-sm mb-2">Imagem enviada:</p>
-                  <img
-                    src={preview || ""}
-                    className="rounded-lg border shadow-sm max-h-80 object-contain"
-                  />
-                </div>
-
-                <div>
-                  <p className="font-medium text-sm mb-2">
-                    Imagem processada pelo modelo:
-                  </p>
-                  <img
-                    src={`data:image/png;base64,${result.imagem_tratada_base64}`}
-                    className="rounded-lg border shadow-sm max-h-80 object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* RECOMENDAÇÃO MINI GPT */}
           {result.recomendacao && (
             <div className="bg-pink-50 border border-pinkscan-primary/30 rounded-xl p-5 shadow-sm mt-6">
